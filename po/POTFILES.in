@@ -1,6 +1,5 @@
 # List of source files containing translatable strings.
 # Please keep this file sorted alphabetically.
-data/disks.ui
 data/gnome-system-monitor-kde.desktop.in.in
 data/shortcuts-dialog.ui
 data/interface.ui
@@ -21,11 +20,8 @@ src/action-impls/gsm-setpriority.c
 src/actions/gsm-actions.c
 src/application.cpp
 src/defaulttable.h
-src/disks.c
 src/interface.cpp
 src/legacy/e_date.c
-src/legacy/gsm_color_button.c
-src/load-graph.cpp
 src/lsof.cpp
 src/main.cpp
 src/memmaps.cpp

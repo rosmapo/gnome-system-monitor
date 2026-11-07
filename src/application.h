@@ -8,10 +8,7 @@
 #include <algorithm>
 #include <mutex>
 
-struct LoadGraph;
-
 #include "legacy/treeview.h"
-#include "disks.h"
 #include "prettytable.h"
 #include "procinfo.h"
 #include "proclist.h"
@@ -24,51 +21,17 @@ struct ProcConfig
   ProcConfig ()
     : current_tab (),
     update_interval (0),
-    graph_update_interval (0),
-    graph_data_points (0),
-    mem_color (),
-    swap_color (),
-    net_in_color (),
-    net_out_color (),
-    disk_read_color (),
-    disk_write_color (),
-    bg_color (),
-    frame_color (),
     num_cpus (0),
     solaris_mode (false),
-    process_memory_in_iec (true),
-    logarithmic_scale (false),
-    draw_stacked (false),
-    draw_smooth (true),
-    resources_memory_in_iec (true),
-    network_in_bits (false),
-    network_total_in_bits (false)
+    process_memory_in_iec (true)
   {
-    std::fill (&this->cpu_color[0], &this->cpu_color[GLIBTOP_NCPU], GdkRGBA ());
   }
 
   Glib::ustring current_tab;
   int update_interval;
-  int graph_update_interval;
-  int graph_data_points;
-  GdkRGBA cpu_color[GLIBTOP_NCPU];
-  GdkRGBA mem_color;
-  GdkRGBA swap_color;
-  GdkRGBA net_in_color;
-  GdkRGBA net_out_color;
-  GdkRGBA disk_read_color;
-  GdkRGBA disk_write_color;
-  GdkRGBA bg_color;
-  GdkRGBA frame_color;
   gint num_cpus;
   bool solaris_mode;
   bool process_memory_in_iec;
-  bool logarithmic_scale;
-  bool draw_stacked;
-  bool draw_smooth;
-  bool resources_memory_in_iec;
-  bool network_in_bits;
-  bool network_total_in_bits;
 };
 
 class GsmApplication final: public Gtk::Application, private procman::NonCopyable
@@ -121,13 +84,6 @@ public:
   guint64 cpu_total_time;
   guint64 cpu_total_time_last;
   unsigned frequency;
-
-  LoadGraph *cpu_graph;
-  LoadGraph *mem_graph;
-  LoadGraph *net_graph;
-  LoadGraph *disk_graph;
-
-  GsmDisksView *disk_list;
 
   GtkTreeSelection *selection;
 

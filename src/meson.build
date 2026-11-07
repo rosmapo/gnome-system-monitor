@@ -8,7 +8,6 @@ subdir('cgroups')
 
 system_monitor_sources = [
   'application.cpp',
-  'column-view-persister.c',
   'interface.cpp',
   'lsof.cpp',
   'mem-map.c',
@@ -31,10 +30,8 @@ system_monitor_sources = [
 
 system_monitor_headers = [
   'legacy/e_date.h',
-  'legacy/gsm_color_button.h',
   'legacy/treeview.h',
   'application.h',
-  'column-view-persister.h',
   'defaulttable.h',
   'interface.h',
   'lsof.h',

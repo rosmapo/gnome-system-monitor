@@ -4,7 +4,6 @@
 #include <cmath>
 #include <cstdint>
 #include <cstdio>
-#include <random>
 #include <tuple>
 #include <vector>
 
@@ -249,100 +248,8 @@ procman_debug_real (const char *file,
   g_free (msg);
 }
 
-
-// h is in [0.0; 1.0] (and not [0°; 360°] )
-// s is in [0.0; 1.0]
-// v is in [0.0; 1.0]
-// https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
-std::tuple<double, double, double>
-hsv_to_rgb (double h,
-            double s,
-            double v)
-{
-  const double c = v * s;
-  const double hp = h * 6;   // 360° / 60°
-  const double x = c * (1 - std::abs (std::fmod (hp, 2.0) - 1));
-
-  double r1 = 0, g1 = 0, b1 = 0;
-
-  switch (int(hp))
-    {
-      case 0: r1 = c;
-        g1 = x;
-        b1 = 0;
-        break;
-
-      case 1: r1 = x;
-        g1 = c;
-        b1 = 0;
-        break;
-
-      case 2: r1 = 0;
-        g1 = c;
-        b1 = x;
-        break;
-
-      case 3: r1 = 0;
-        g1 = x;
-        b1 = c;
-        break;
-
-      case 4: r1 = x;
-        g1 = 0;
-        b1 = c;
-        break;
-
-      case 5: r1 = c;
-        g1 = 0;
-        b1 = x;
-        break;
-    }
-
-  const double m = v - c;
-
-  return { r1 + m, g1 + m, b1 + m };
-}
-
-
-std::string
-rgb_to_color_string (const std::tuple<double, double, double> &t)
-{
-  char b[14];
-  auto c = [](double d) {
-             return (unsigned short)(0xffff * d);
-           };
-
-  std::snprintf (b, sizeof b, "#%04x%04x%04x", c (std::get<0>(t)), c (std::get<1>(t)), c (std::get<2>(t)));
-  return { b, 13 };
-}
-
-
 namespace procman
 {
-// http://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
-std::vector<std::string>
-generate_colors (unsigned n)
-{
-  constexpr double golden_ration_conjugate = 0.618033988749894848204586834;
-
-  std::vector<std::string> values;
-
-  std::random_device re;
-  std::uniform_real_distribution<> dist (0.0, 1.0);
-
-  double h = dist (re);
-
-  for (unsigned i = 0; i < n; i++)
-    {
-      h = CLAMP (h, 0.0, 1.0);
-      auto rgb = hsv_to_rgb (h, 0.5, 0.95);
-      values.push_back (rgb_to_color_string (rgb));
-      h = std::fmod (h + golden_ration_conjugate, 1.0);
-    }
-
-  return values;
-}
-
 void
 size_cell_data_func (GtkTreeViewColumn *,
                      GtkCellRenderer *renderer,
@@ -670,18 +577,6 @@ tree_store_update<const char>(GtkTreeModel*model,
 
 
 std::string
-format_volume (guint64 size,
-               bool    want_bits)
-{
-  char*bytes = procman::format_size (size, want_bits);
-  std::string formatted (make_string (g_strdup (bytes)));
-
-  g_free (bytes);
-  return formatted;
-}
-
-
-std::string
 format_rate (guint64 rate,
              bool    want_bits)
 {
@@ -693,19 +588,6 @@ format_rate (guint64 rate,
   return formatted_rate;
 }
 
-
-std::string
-format_network (guint64 size)
-{
-  return format_volume (size, GsmApplication::get ().config.network_total_in_bits);
-}
-
-
-std::string
-format_network_rate (guint64 rate)
-{
-  return procman::format_rate (rate, GsmApplication::get ().config.network_in_bits);
-}
 }
 
 

@@ -29,10 +29,6 @@ GtkLabel *                         init_tnum_label (gint     char_width,
                                                     GtkAlign halign);
 GtkLabel *                         make_tnum_label (void);
 PangoAttrList *                    make_tnum_attr_list (void);
-std::tuple<double, double, double> hsv_to_rgb (double h,
-                                               double s,
-                                               double v);
-std::string                        rgb_to_color_string (const std::tuple<double, double, double> &t);
 
 inline string
 make_string (char *c_str)
@@ -52,9 +48,6 @@ make_string (char *c_str)
 
 namespace procman
 {
-// create a list of n color strings
-std::vector<std::string> generate_colors (unsigned n);
-
 char *                   format_duration_for_display (unsigned centiseconds);
 
 void                     size_cell_data_func (GtkTreeViewColumn *col,
@@ -174,13 +167,8 @@ const char *get_nice_level (int nice);
 
 gchar *     get_nice_level_with_priority (gint nice);
 
-std::string format_volume (guint64 size,
-                           bool    want_bits = false);
 std::string format_rate (guint64 rate,
                          bool    want_bits = false);
-
-std::string format_network (guint64 size);
-std::string format_network_rate (guint64 rate);
 
 struct NonCopyable
 {

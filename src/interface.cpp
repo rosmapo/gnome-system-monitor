@@ -29,7 +29,6 @@ of the License, or (at your option) any later version.
 #include "procproperties.h"
 #include "util.h"
 #include "settings-keys.h"
-#include "legacy/gsm_color_button.h"
 
 static void
 search_text_changed (GtkEditable*, gpointer data)
@@ -332,7 +331,6 @@ create_main_window (GsmApplication *app)
   app->stack = ADW_VIEW_STACK (gtk_builder_get_object (builder, "stack"));
   
   create_proc_view (app, builder);
-  // create_sys_view odstránená, aby sa nenačítavali grafy a zdroje
 
   app->app_menu_button = GTK_MENU_BUTTON (gtk_builder_get_object (builder, "app_menu_button"));
   app->generic_window_menu_model = G_MENU_MODEL (gtk_builder_get_object (builder, "generic-window-menu"));

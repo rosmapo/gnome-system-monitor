@@ -62,7 +62,6 @@ gtk        = dependency('gtk4',        version: '>=4.17.5')
 gtkmm      = dependency('gtkmm-4.0',   version: '>=4.17.5')
 libgtop    = dependency('libgtop-2.0', version: '>=2.41.2')
 libadwaita = dependency('libadwaita-1',version: '>=1.7.alpha')
-librsvg    = dependency('librsvg-2.0', version: '>=2.46')
 
 if get_option('systemd')
   libsystemd = dependency('libsystemd', version: '>=44')

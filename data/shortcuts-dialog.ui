@@ -95,20 +95,8 @@
         <property name="title" translatable="yes" context="shortcuts dialog">Views</property>
         <child>
           <object class="AdwShortcutsItem">
-            <property name="accelerator">&lt;Alt&gt;1</property>
-            <property name="title" translatable="yes" context="shortcuts dialog">Switch to Resources</property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwShortcutsItem">
             <property name="accelerator">&lt;Alt&gt;2</property>
             <property name="title" translatable="yes" context="shortcuts dialog">Switch to Processes</property>
-          </object>
-        </child>
-        <child>
-          <object class="AdwShortcutsItem">
-            <property name="accelerator">&lt;Alt&gt;3</property>
-            <property name="title" translatable="yes" context="shortcuts dialog">Switch to File Systems</property>
           </object>
         </child>
       </object>
