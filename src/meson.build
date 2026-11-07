@@ -9,11 +9,7 @@ subdir('cgroups')
 system_monitor_sources = [
   'application.cpp',
   'column-view-persister.c',
-  'disk.c',
-  'disks.c',
-  'gsm-graph.c',
   'interface.cpp',
-  'load-graph.cpp',
   'lsof.cpp',
   'mem-map.c',
   'memmaps.cpp',
@@ -40,11 +36,7 @@ system_monitor_headers = [
   'application.h',
   'column-view-persister.h',
   'defaulttable.h',
-  'disk.h',
-  'disks.h',
-  'gsm-graph.h',
   'interface.h',
-  'load-graph.h',
   'lsof.h',
   'mem-map.h',
   'memmaps.h',
@@ -118,6 +110,7 @@ system_monitor_dependencies = [
   libgsm_selinux_dep,
   libgsm_cgroups_dep,
 ]
+
 libgsm = static_library(
   'libgsm',
   system_monitor_sources + [gsm_resource],
@@ -125,6 +118,7 @@ libgsm = static_library(
   dependencies: system_monitor_dependencies,
   link_with: libgsm_legacy,
 )
+
 libgsm_dep = declare_dependency(
   dependencies: system_monitor_dependencies,
   include_directories: rootInclude,
